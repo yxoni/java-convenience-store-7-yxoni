@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class UnitTest {
 
     @Test
@@ -23,6 +25,27 @@ public class UnitTest {
         Product product = products.get(0);
 
         Assertions.assertThat(product.toString()).isEqualTo("- 콜라 1,000원 10개 탄산2+1");
+    }
+
+    @Test
+    void 각_상품의_재고_수량을_고려하여_결제_가능_여부_확인() {
+        FileReader fileReader = new FileReader();
+        List<Product> products = fileReader.createProduct();
+
+        Product product = products.get(0);
+
+        product.pay(1);
+        Assertions.assertThat(product.toString()).isEqualTo("- 콜라 1,000원 9개 탄산2+1");
+    }
+
+    @Test
+    void 상품의_재고보다_적으면_결제_불가() {
+        FileReader fileReader = new FileReader();
+        List<Product> products = fileReader.createProduct();
+
+        Product product = products.get(0);
+
+        assertThrows(IllegalArgumentException.class, () -> product.pay(11));
     }
 
 }
