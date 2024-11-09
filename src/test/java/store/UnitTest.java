@@ -22,10 +22,7 @@ public class UnitTest {
 
         Product product = products.get(0);
 
-        Assertions.assertThat(product.getName()).isEqualTo("콜라");
-        Assertions.assertThat(product.getPrice()).isEqualTo(1000);
-        Assertions.assertThat(product.getQuantity()).isEqualTo(10);
-        Assertions.assertThat(product.getPromotion()).isEqualTo("탄산2+1");
+        Assertions.assertThat(product.toString()).isEqualTo("- 콜라 1,000원 10개 탄산2+1");
     }
 
 }
