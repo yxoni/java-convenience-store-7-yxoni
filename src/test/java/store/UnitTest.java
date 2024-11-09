@@ -39,7 +39,7 @@ public class UnitTest {
     }
 
     @Test
-    void 상품의_재고보다_적으면_결제_불가() {
+    void 상품의_재고보다_많으면_결제_불가() {
         FileReader fileReader = new FileReader();
         List<Product> products = fileReader.createProduct();
 
