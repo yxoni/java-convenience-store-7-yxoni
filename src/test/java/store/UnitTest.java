@@ -103,7 +103,7 @@ public class UnitTest {
         Product product = products.get(0);
 
         product.buy(amount);
-        assertEquals("현재 콜라은(는) 1개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)", outputStream.toString());
+        assertEquals("현재 콜라은(는) 1개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)".trim(), outputStream.toString().trim());
     }
 
     @ParameterizedTest
@@ -116,7 +116,7 @@ public class UnitTest {
 
         product.buy(amount);
         String expected = String.format("현재 콜라 %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)", exceed);
-        assertEquals(expected, outputStream.toString());
+        assertEquals(expected.trim(), outputStream.toString().trim());
     }
 
 }

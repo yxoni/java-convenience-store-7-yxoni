@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Promotion {
+    private final InputView inputView = new InputView();
+    private final OutputView outputView = new OutputView();
     private final String name;
     private final int buy;
     private final int get;
@@ -16,6 +18,32 @@ public class Promotion {
         this.get = get;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public int apply(String productName, int quantity, int amount) {
+        int total = buy + get;
+        int maxAmount= quantity / total * total;
+        if (amount <= maxAmount && amount % total == 0) {
+            return amount;
+        }
+        if (amount % total == buy && amount < maxAmount) {
+            outputView.promotionAdditionalGuide(productName);
+            if (inputView.readAnswer().equals("Y")) {
+                return amount + 1;
+            }
+            return amount;
+        }
+
+        int impossibleAmount = amount % total;
+        if (amount > maxAmount) {
+            impossibleAmount = amount - maxAmount;
+        }
+        outputView.promotionImpossibleGuide(productName, impossibleAmount);
+        if (inputView.readAnswer().equals("Y")) {
+            // 근데 이제 impossibleAmount는 그냥 재고에서 추가로 구매하는
+            return amount;
+        }
+        return amount / total * total;
     }
 
     public boolean isPossible(LocalDateTime now) {
