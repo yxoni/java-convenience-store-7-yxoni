@@ -1,5 +1,6 @@
 package store;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -48,4 +49,15 @@ public class UnitTest {
         assertThrows(IllegalArgumentException.class, () -> product.pay(11));
     }
 
+    @Test
+    void 오늘_날짜가_프로모션_기간_내에_포홤되어_있는지_확인() {
+        FileReader fileReader = new FileReader();
+        List<Promotion> promotions = fileReader.createPromotion();
+
+        Promotion promotionPossible = promotions.get(0);
+        Promotion promotionImpossible = promotions.get(3);
+
+        Assertions.assertThat(promotionPossible.isPossible(DateTimes.now())).isEqualTo(true);
+        Assertions.assertThat(promotionImpossible.isPossible(DateTimes.now())).isEqualTo(false);
+    }
 }
