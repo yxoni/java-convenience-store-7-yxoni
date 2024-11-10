@@ -3,10 +3,10 @@ package store;
 import java.util.Optional;
 
 public class Product {
-    private String name;
-    private int price;
+    private final String name;
+    private final int price;
     private int quantity;
-    private Promotion promotion;
+    private final Promotion promotion;
 
     public Product(String name, int price, int quantity, Promotion promotion) {
         this.name = name;
