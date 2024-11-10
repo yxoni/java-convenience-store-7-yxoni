@@ -9,6 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
@@ -117,6 +118,20 @@ public class UnitTest {
         product.buy(amount);
         String expected = String.format("현재 콜라 %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)", exceed);
         assertEquals(expected.trim(), outputStream.toString().trim());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"1,10,9", "4,7,9", "10,1,9", "11,1,8", "12,1,7"})
+    void 프로모션_수량_부족으로_일부_수량_정가로_결제(int amount, int promotionProductQuantity, int generalProductQuantity) {
+        ProductManager productManager = new ProductManager();
+        String yes = "Y\n";
+        System.setIn(new ByteArrayInputStream(yes.getBytes()));
+
+        productManager.purchase("콜라", amount);
+
+        String promotionProductExpected = String.format("- 콜라 1,000원 %d개 탄산2+1", promotionProductQuantity);
+        String generalProductExpected = String.format("- 콜라 1,000원 %d개", generalProductQuantity);
+        Assertions.assertThat(productManager.print()).contains(promotionProductExpected, generalProductExpected);
     }
 
 }
