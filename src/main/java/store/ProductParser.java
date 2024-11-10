@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductParser {
+    private final PromotionManager promotionManager;
+
+    public ProductParser(PromotionManager promotionManager) {
+        this.promotionManager = promotionManager;
+    }
+
     public List<Product> read(InputStream productsInputStream) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(productsInputStream))) {
             return reader.lines()
@@ -25,7 +31,7 @@ public class ProductParser {
         String name = productParts[0];
         int price = Integer.parseInt(productParts[1]);
         int quantity = Integer.parseInt(productParts[2]);
-        String promotion = productParts[3];
+        Promotion promotion = promotionManager.match(productParts[3]);
 
         return new Product(name, price, quantity, promotion);
     }

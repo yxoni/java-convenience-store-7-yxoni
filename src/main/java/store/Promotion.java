@@ -23,4 +23,13 @@ public class Promotion {
         return (startDate.isBefore(nowDate) || startDate.isEqual(nowDate)) &&
                 (endDate.isAfter(nowDate) || endDate.isEqual(nowDate));
     }
+
+    public boolean isMatch(String promotion) {
+        return promotion.equals(name);
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

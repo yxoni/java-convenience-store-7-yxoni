@@ -1,12 +1,14 @@
 package store;
 
+import java.util.Optional;
+
 public class Product {
     private String name;
     private int price;
     private int quantity;
-    private String promotion;
+    private Promotion promotion;
 
-    public Product(String name, int price, int quantity, String promotion) {
+    public Product(String name, int price, int quantity, Promotion promotion) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -22,9 +24,12 @@ public class Product {
 
     @Override
     public String toString() {
+        String promotionName = Optional.ofNullable(promotion)
+                .map(Promotion::toString)
+                .orElse("");
         if (quantity == 0) {
-            return String.format("- %s %,d원 재고 없음 %s", name, price, promotion);
+            return String.format("- %s %,d원 재고 없음 %s", name, price, promotionName);
         }
-        return String.format("- %s %,d원 %d개 %s", name, price, quantity, promotion);
+        return String.format("- %s %,d원 %d개 %s", name, price, quantity, promotionName);
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class FileReader {
     public List<Product> createProduct() {
-        ProductParser productParser = new ProductParser();
+        ProductParser productParser = new ProductParser(new PromotionManager(createPromotion()));
         return productParser.read(road("products"));
     }
 
