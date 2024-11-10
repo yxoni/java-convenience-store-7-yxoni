@@ -55,10 +55,10 @@ public class UnitTest {
         FileReader fileReader = new FileReader();
         List<Product> products = fileReader.createProduct();
 
-        Product product = products.get(0);
+        Product product = products.get(1);
 
         product.buy(1);
-        Assertions.assertThat(product.toString()).isEqualTo("- 콜라 1,000원 9개 탄산2+1");
+        Assertions.assertThat(product.toString()).isEqualTo("- 콜라 1,000원 9개");
     }
 
     @Test
@@ -66,7 +66,7 @@ public class UnitTest {
         FileReader fileReader = new FileReader();
         List<Product> products = fileReader.createProduct();
 
-        Product product = products.get(0);
+        Product product = products.get(1);
 
         assertThrows(IllegalArgumentException.class, () -> product.buy(11));
     }
@@ -98,6 +98,9 @@ public class UnitTest {
     @ParameterizedTest
     @ValueSource(ints = {2, 5, 8})
     void 프로모션_할인_무료_추가(int amount) {
+        String yes = "Y\n";
+        System.setIn(new ByteArrayInputStream(yes.getBytes()));
+
         FileReader fileReader = new FileReader();
         List<Product> products = fileReader.createProduct();
 
@@ -110,6 +113,9 @@ public class UnitTest {
     @ParameterizedTest
     @CsvSource(value = {"1,1", "4,1", "10,1", "11,2", "12,3"})
     void 프로모션_할인_기준_미달로_인한_그냥_구매(int amount, int exceed) {
+        String yes = "Y\n";
+        System.setIn(new ByteArrayInputStream(yes.getBytes()));
+        
         FileReader fileReader = new FileReader();
         List<Product> products = fileReader.createProduct();
 
