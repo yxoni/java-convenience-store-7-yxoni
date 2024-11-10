@@ -17,15 +17,21 @@ public class Product {
         this.promotion = promotion;
     }
 
-    public void buy(int amount) {
+    public int buy(int amount) {
         if (promotion != null && promotion.isPossible(DateTimes.now())) {
-            promotion.apply(name, quantity, amount);
-            return;
+            Amount purchaseAmount = promotion.apply(name, quantity, amount);
+            quantity -= purchaseAmount.getBuy();
+            return purchaseAmount.getAdditional();
         }
         if (amount > quantity) {
             throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
         }
         quantity -= amount;
+        return 0;
+    }
+
+    public boolean isCorrect(String name) {
+        return name.equals(this.name);
     }
 
     @Override
@@ -34,8 +40,8 @@ public class Product {
                 .map(Promotion::toString)
                 .orElse("");
         if (quantity == 0) {
-            return String.format("- %s %,d원 재고 없음 %s", name, price, promotionName);
+            return String.format("- %s %,d원 재고 없음 %s", name, price, promotionName).trim();
         }
-        return String.format("- %s %,d원 %d개 %s", name, price, quantity, promotionName);
+        return String.format("- %s %,d원 %d개 %s", name, price, quantity, promotionName).trim();
     }
 }

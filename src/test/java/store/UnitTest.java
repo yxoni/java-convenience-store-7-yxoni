@@ -1,5 +1,6 @@
 package store;
 
+import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.DateTimes;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -14,11 +15,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitTest {
-
     private static ByteArrayOutputStream outputStream;
 
     @BeforeEach
@@ -29,6 +28,7 @@ public class UnitTest {
 
     @AfterEach
     void restoreStream() {
+        Console.close();
         System.setOut(System.out);
     }
 
@@ -123,15 +123,18 @@ public class UnitTest {
     @ParameterizedTest
     @CsvSource(value = {"1,10,9", "4,7,9", "10,1,9", "11,1,8", "12,1,7"})
     void 프로모션_수량_부족으로_일부_수량_정가로_결제(int amount, int promotionProductQuantity, int generalProductQuantity) {
-        ProductManager productManager = new ProductManager();
         String yes = "Y\n";
         System.setIn(new ByteArrayInputStream(yes.getBytes()));
 
+        ProductManager productManager = new ProductManager();
         productManager.purchase("콜라", amount);
+        productManager.print();
 
         String promotionProductExpected = String.format("- 콜라 1,000원 %d개 탄산2+1", promotionProductQuantity);
         String generalProductExpected = String.format("- 콜라 1,000원 %d개", generalProductQuantity);
-        Assertions.assertThat(productManager.print()).contains(promotionProductExpected, generalProductExpected);
+
+        assertTrue(outputStream.toString().contains(promotionProductExpected));
+        assertTrue(outputStream.toString().contains(generalProductExpected));
     }
 
 }

@@ -20,18 +20,18 @@ public class Promotion {
         this.endDate = endDate;
     }
 
-    public int apply(String productName, int quantity, int amount) {
+    public Amount apply(String productName, int quantity, int amount) {
         int total = buy + get;
         int maxAmount= quantity / total * total;
         if (amount <= maxAmount && amount % total == 0) {
-            return amount;
+            return new Amount(amount, 0);
         }
         if (amount % total == buy && amount < maxAmount) {
             outputView.promotionAdditionalGuide(productName);
             if (inputView.readAnswer().equals("Y")) {
-                return amount + 1;
+                return new Amount(amount+1, 0);
             }
-            return amount;
+            return new Amount(amount, 0);
         }
 
         int impossibleAmount = amount % total;
@@ -39,11 +39,10 @@ public class Promotion {
             impossibleAmount = amount - maxAmount;
         }
         outputView.promotionImpossibleGuide(productName, impossibleAmount);
-        if (inputView.readAnswer().equals("Y")) {
-            // 근데 이제 impossibleAmount는 그냥 재고에서 추가로 구매하는
-            return amount;
+        if (inputView.readAnswer().trim().equals("Y")) {
+            return new Amount(amount-impossibleAmount, impossibleAmount);
         }
-        return amount / total * total;
+        return new Amount(amount / total * total, 0);
     }
 
     public boolean isPossible(LocalDateTime now) {
