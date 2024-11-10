@@ -115,7 +115,7 @@ public class UnitTest {
     void 프로모션_할인_기준_미달로_인한_그냥_구매(int amount, int exceed) {
         String yes = "Y\n";
         System.setIn(new ByteArrayInputStream(yes.getBytes()));
-        
+
         FileReader fileReader = new FileReader();
         List<Product> products = fileReader.createProduct();
 
@@ -141,6 +141,27 @@ public class UnitTest {
 
         assertTrue(outputStream.toString().contains(promotionProductExpected));
         assertTrue(outputStream.toString().contains(generalProductExpected));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"3,1", "4,1", "10,3", "12,3"})
+    void 영수증으로_고객의_구매와_증정_내역_보기(int amount, int promotionAmount) {
+        String yes = "Y\n";
+        System.setIn(new ByteArrayInputStream(yes.getBytes()));
+
+        ProductManager productManager = new ProductManager();
+        productManager.purchase("콜라", amount);
+
+        OutputView outputView = new OutputView();
+        outputView.printReceipt();
+
+        String receiptFormat = "%-19s %-10d %-9d";
+        String expectedReceipt = String.format(receiptFormat, "콜라", amount, amount*1000);
+        String promotionFormat = "%-19s %-10d";
+        String expectedPromotion = String.format(promotionFormat, "콜라", promotionAmount);
+
+        assertTrue(outputStream.toString().contains(expectedReceipt));
+        assertTrue(outputStream.toString().contains(expectedPromotion));
     }
 
 }
