@@ -2,7 +2,7 @@ package store;
 
 public class Amount {
     private final String name;
-    private final long price;
+    private final int price;
     private long buy;
     private final long get;
     private final long additional;
