@@ -128,7 +128,7 @@ public class UnitTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"1,10,9", "4,7,9", "10,1,9", "11,1,8", "12,1,7"})
+    @CsvSource(value = {"1,9,10", "4,6,10"})
     void 프로모션_수량_부족으로_일부_수량_정가로_결제(int amount, int promotionProductQuantity, int generalProductQuantity) {
         String yes = "Y\n";
         System.setIn(new ByteArrayInputStream(yes.getBytes()));
@@ -138,6 +138,23 @@ public class UnitTest {
         productManager.print();
 
         String promotionProductExpected = String.format("- 콜라 1,000원 %d개 탄산2+1", promotionProductQuantity);
+        String generalProductExpected = String.format("- 콜라 1,000원 %d개", generalProductQuantity);
+
+        assertTrue(outputStream.toString().contains(promotionProductExpected));
+        assertTrue(outputStream.toString().contains(generalProductExpected));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"10,0,10", "11,0,9", "12,0,8"})
+    void 프로모션_수량_부족으로_일부_수량_정가로_결제_재고_없음으로_표시(int amount, int promotionProductQuantity, int generalProductQuantity) {
+        String yes = "Y\n";
+        System.setIn(new ByteArrayInputStream(yes.getBytes()));
+
+        ProductManager productManager = new ProductManager();
+        productManager.purchase("콜라", amount);
+        productManager.print();
+
+        String promotionProductExpected = String.format("- 콜라 1,000원 재고 없음 탄산2+1");
         String generalProductExpected = String.format("- 콜라 1,000원 %d개", generalProductQuantity);
 
         assertTrue(outputStream.toString().contains(promotionProductExpected));
