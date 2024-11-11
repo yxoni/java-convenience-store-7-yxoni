@@ -28,14 +28,15 @@ public class OutputView {
         System.out.println("멤버십 할인을 받으시겠습니다? (Y/N)");
     }
 
-    public void printReceipt() {
+    public void printReceipt(Receipt receipt) {
         // TODO: 영수증 출력 상세 내역
-        String receiptLine = "=".repeat(14);
+        String receiptStartLine = "=".repeat(14);
+        String receiptEndLine = "=".repeat(16);
 
-        System.out.println(receiptLine + "W 편의점" + receiptLine);
-
-        System.out.println(receiptLine + "증\t정" + receiptLine);
-
+        System.out.println(receiptStartLine + "W 편의점" + receiptEndLine);
+        System.out.println(receipt.productReport());
+        System.out.println(receiptStartLine + "증\t정" + receiptEndLine);
+        System.out.println(receipt.promotionReport());
         System.out.println("=".repeat(36));
     }
 

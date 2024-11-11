@@ -149,18 +149,16 @@ public class UnitTest {
         String yes = "Y\n";
         System.setIn(new ByteArrayInputStream(yes.getBytes()));
 
-        ProductManager productManager = new ProductManager();
-        productManager.purchase("콜라", amount);
+        ConvenienceStore convenienceStore = new ConvenienceStore();
+        convenienceStore.payment("콜라", amount);
+        convenienceStore.ending();
 
-        OutputView outputView = new OutputView();
-        outputView.printReceipt();
-
-        String receiptFormat = "%-19s %-10d %-9d";
-        String expectedReceipt = String.format(receiptFormat, "콜라", amount, amount*1000);
+        String productFormat = "%-19s %-10d %-6d";
+        String expectedProduct = String.format(productFormat, "콜라", amount, amount*1000);
         String promotionFormat = "%-19s %-10d";
         String expectedPromotion = String.format(promotionFormat, "콜라", promotionAmount);
 
-        assertTrue(outputStream.toString().contains(expectedReceipt));
+        assertTrue(outputStream.toString().contains(expectedProduct));
         assertTrue(outputStream.toString().contains(expectedPromotion));
     }
 

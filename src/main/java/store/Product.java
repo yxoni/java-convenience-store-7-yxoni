@@ -17,21 +17,32 @@ public class Product {
         this.promotion = promotion;
     }
 
-    public int buy(int amount) {
-        if (promotion != null && promotion.isPossible(DateTimes.now())) {
-            Amount purchaseAmount = promotion.apply(name, quantity, amount);
-            quantity -= purchaseAmount.getBuy();
-            return purchaseAmount.getAdditional();
+    public Amount buy(int amount) {
+        if (promotion != null) {
+            return promotionBuy(amount);
         }
-        if (amount > quantity) {
-            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
-        }
+        isExceed(amount);
         quantity -= amount;
-        return 0;
+        return new Amount(name, price, amount, 0, 0);
+    }
+
+    public Amount promotionBuy(int amount) {
+        if (promotion.isPossible(DateTimes.now())) {
+            Amount purchaseAmount = promotion.apply(name, price, quantity, amount);
+            quantity -= purchaseAmount.getBuy();
+            return purchaseAmount;
+        }
+        return new Amount(name, price, 0, 0, amount);
     }
 
     public boolean isCorrect(String name) {
         return name.equals(this.name);
+    }
+
+    public void isExceed(int amount) {
+        if (amount > quantity) {
+            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+        }
     }
 
     @Override
