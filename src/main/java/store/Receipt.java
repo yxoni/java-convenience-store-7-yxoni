@@ -9,6 +9,7 @@ public class Receipt {
     private int totalPrice = 0;
     private int totalBuyAmount = 0;
     private int promotionPrice = 0;
+    private int membershipAvailablePrice = 0;
     private int membershipPrice = 0;
     private int payment = 0;
 
@@ -43,8 +44,9 @@ public class Receipt {
         amounts.forEach(amount -> totalPrice += amount.totalPrice());
         amounts.forEach(amount -> totalBuyAmount += amount.getBuy());
         amounts.forEach(amount -> promotionPrice += amount.promotionPrice());
+        amounts.forEach(amount -> membershipAvailablePrice += amount.membershipAvailablePrice());
         if (membershipDiscount) {
-            membershipPrice = (int) Math.floor((totalPrice - promotionPrice) * 0.3);
+            membershipPrice = (int) Math.floor(membershipAvailablePrice * 0.3);
         }
         if (membershipPrice > 8000) {
             membershipPrice = 8000;

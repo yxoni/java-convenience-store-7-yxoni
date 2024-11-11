@@ -6,13 +6,15 @@ public class Amount {
     private int buy;
     private final int get;
     private final int additional;
+    private final int membership;
 
-    public Amount(String name, int price, int buy, int get, int additional) {
+    public Amount(String name, int price, int buy, int get, int additional, int membership) {
         this.name = name;
         this.price = price;
         this.buy = buy;
         this.get = get;
         this.additional = additional;
+        this.membership = membership;
     }
 
     public int getBuy() {
@@ -29,6 +31,10 @@ public class Amount {
 
     public int promotionPrice() {
         return price * get;
+    }
+
+    public int  membershipAvailablePrice() {
+        return price * membership;
     }
 
     public void addBuyAmount(int amount) {

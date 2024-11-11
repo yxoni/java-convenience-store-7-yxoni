@@ -27,7 +27,7 @@ public class Product {
         }
         isExceed(amount);
         quantity -= amount;
-        return new Amount(name, price, amount, 0, 0);
+        return new Amount(name, price, amount, 0, 0, amount);
     }
 
     public Amount promotionBuy(int amount) {
@@ -36,7 +36,7 @@ public class Product {
             quantity -= purchaseAmount.getBuy();
             return purchaseAmount;
         }
-        return new Amount(name, price, 0, 0, amount);
+        return new Amount(name, price, 0, 0, amount, 0);
     }
 
     public boolean isCorrect(String name) {

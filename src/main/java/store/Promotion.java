@@ -24,15 +24,15 @@ public class Promotion {
         int total = buy + get;
         int maxAmount= quantity / total * total;
         if (amount <= maxAmount && amount % total == 0) {
-            return new Amount(productName, price, amount, amount/total, 0);
+            return new Amount(productName, price, amount, amount/total, 0, 0);
         }
 
         if (amount % total == buy && amount < maxAmount) {
             outputView.promotionAdditionalGuide(productName);
             if (inputView.readAnswer().equals("Y")) {
-                return new Amount(productName, price, amount+1, (amount+1)/total, 0);
+                return new Amount(productName, price, amount+1, (amount+1)/total, 0, 0);
             }
-            return new Amount(productName, price, amount, amount/total, 0);
+            return new Amount(productName, price, amount, amount/total, 0, 0);
         }
 
         int impossibleAmount = amount % total;
@@ -42,11 +42,11 @@ public class Promotion {
         outputView.promotionImpossibleGuide(productName, impossibleAmount);
         if (inputView.readAnswer().trim().equals("Y")) {
             if (quantity - (amount - impossibleAmount) < impossibleAmount) {
-                return new Amount(productName, price, quantity, (amount-impossibleAmount)/total, amount-quantity);
+                return new Amount(productName, price, quantity, (amount-impossibleAmount)/total, amount-quantity, impossibleAmount);
             }
-            return new Amount(productName, price, amount, (amount-impossibleAmount)/total, 0);
+            return new Amount(productName, price, amount, (amount-impossibleAmount)/total, 0, impossibleAmount);
         }
-        return new Amount(productName, price, amount-impossibleAmount, (amount-impossibleAmount)/total,0);
+        return new Amount(productName, price, amount-impossibleAmount, (amount-impossibleAmount)/total,0, 0);
     }
 
     public boolean isPossible(LocalDateTime now) {
