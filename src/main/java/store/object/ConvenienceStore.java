@@ -51,7 +51,6 @@ public class ConvenienceStore {
         Map<String, Integer> purchaseData = inputParser.mapping(purchaseProducts);
         productManager.validate(purchaseData);
         createReceipt(purchaseData);
-
     }
 
     public void createReceipt(Map<String, Integer> purchaseData) {

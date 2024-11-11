@@ -1,7 +1,7 @@
 package store.io;
 
-import store.product.Product;
 import store.object.Receipt;
+import store.product.Product;
 
 import java.util.List;
 
@@ -47,6 +47,6 @@ public class OutputView {
     }
 
     public void printError(String errorMessage) {
-        System.out.println("\n"+errorMessage);
+        System.out.println("\n" + errorMessage);
     }
 }

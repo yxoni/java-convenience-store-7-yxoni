@@ -1,10 +1,9 @@
 package store.file;
 
 import store.product.Product;
-import store.promotion.PromotionManager;
 import store.promotion.Promotion;
+import store.promotion.PromotionManager;
 import store.type.ProductType;
-import store.type.PromotionType;
 
 import java.io.BufferedReader;
 import java.io.IOException;

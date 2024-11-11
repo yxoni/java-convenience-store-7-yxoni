@@ -2,7 +2,9 @@ package store.io;
 
 import store.type.ErrorMessage;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class InputParser {
     private Map<String, Integer> purchaseData;

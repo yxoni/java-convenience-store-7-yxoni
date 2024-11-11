@@ -31,7 +31,7 @@ public class InputView {
     }
 
     public void answerValidate(String input) {
-        if(!"Y".equals(input) && !"N".equals(input)) {
+        if (!"Y".equals(input) && !"N".equals(input)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getMessage());
         }
     }

@@ -33,7 +33,7 @@ public class Amount {
         return price * get;
     }
 
-    public int  membershipAvailablePrice() {
+    public int membershipAvailablePrice() {
         return price * membership;
     }
 
@@ -46,7 +46,7 @@ public class Amount {
             return "";
         }
         String productReportFormat = "%-19s%-10d%,-6d\n";
-        return String.format(productReportFormat, name, buy, price*buy);
+        return String.format(productReportFormat, name, buy, price * buy);
     }
 
     public String parsePromotionDetails() {
