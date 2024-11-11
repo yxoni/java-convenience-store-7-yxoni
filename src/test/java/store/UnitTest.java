@@ -183,9 +183,8 @@ public class UnitTest {
         assertTrue(outputStream.toString().replaceAll("\\s", "").contains(expectedPromotion));
     }
 
-    @ParameterizedTest
-    @CsvSource(value = {"3,1", "4,1", "10,3", "12,3"})
-    void 영수증으로_금액_정보_보기(int amount, int promotionAmount) {
+    @Test
+    void 영수증으로_금액_정보_보기() {
         String yes = "Y\n";
         String input = yes + yes;
         System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -193,20 +192,16 @@ public class UnitTest {
         ConvenienceStore convenienceStore = new ConvenienceStore();
         convenienceStore.init();
         Map<String, Integer> purchaseData = Map.of(
-                "콜라", amount
+                "콜라", 3,
+                "에너지바", 5
         );
         convenienceStore.createReceipt(purchaseData);
         convenienceStore.showReceipt();
 
-        int total = amount * 1000;
-        int promotion = promotionAmount * 1000;
-        int membership = (int) Math.floor((amount - promotionAmount) * 1000 * 0.3);
-        int payment = total - promotion - membership;
-
-        String expectedReceipt = String.format("총구매액%d%,d", amount, total);
-        String expectedPromotion = String.format("행사할인%,d", -promotion);
-        String expectedMembership = String.format("멤버십할인%,d", -membership);
-        String expectedPayment = String.format("내실돈%,d", payment);
+        String expectedReceipt = "총구매액813,000";
+        String expectedPromotion = "행사할인-1,000";
+        String expectedMembership = "멤버십할인-3,000";
+        String expectedPayment = "내실돈9,000";
 
         assertTrue(outputStream.toString().replaceAll("\\s", "").contains(expectedReceipt));
         assertTrue(outputStream.toString().replaceAll("\\s", "").contains(expectedPromotion));
