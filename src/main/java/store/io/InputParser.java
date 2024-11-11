@@ -1,4 +1,4 @@
-package store;
+package store.io;
 
 import java.util.*;
 

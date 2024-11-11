@@ -1,4 +1,8 @@
-package store;
+package store.product;
+
+import store.object.Amount;
+import store.file.FileReader;
+import store.io.OutputView;
 
 import java.util.List;
 import java.util.Map;

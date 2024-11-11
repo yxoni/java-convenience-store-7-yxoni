@@ -1,4 +1,7 @@
-package store;
+package store.io;
+
+import store.product.Product;
+import store.object.Receipt;
 
 import java.util.List;
 

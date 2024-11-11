@@ -1,4 +1,9 @@
-package store;
+package store.object;
+
+import store.io.InputParser;
+import store.io.InputView;
+import store.io.OutputView;
+import store.product.ProductManager;
 
 import java.util.Map;
 

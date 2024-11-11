@@ -1,4 +1,8 @@
-package store;
+package store.promotion;
+
+import store.object.Amount;
+import store.io.InputView;
+import store.io.OutputView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

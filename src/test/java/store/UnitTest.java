@@ -9,6 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import store.file.FileReader;
+import store.object.ConvenienceStore;
+import store.product.Product;
+import store.product.ProductManager;
+import store.promotion.Promotion;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

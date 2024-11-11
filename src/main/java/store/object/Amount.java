@@ -1,4 +1,4 @@
-package store;
+package store.object;
 
 public class Amount {
     private final String name;

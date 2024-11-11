@@ -1,6 +1,8 @@
-package store;
+package store.product;
 
 import camp.nextstep.edu.missionutils.DateTimes;
+import store.object.Amount;
+import store.promotion.Promotion;
 
 import java.util.Optional;
 
