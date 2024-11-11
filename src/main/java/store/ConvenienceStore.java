@@ -15,7 +15,6 @@ public class ConvenienceStore {
             init();
             announcement();
             purchase();
-            membership();
             showReceipt();
             close();
         }
@@ -32,9 +31,21 @@ public class ConvenienceStore {
 
     public void purchase() {
         outputView.purchaseGuide();
-        String purchaseProducts = inputView.readPurchaseProduct();
-        Map<String, Integer> purchaseData = inputParser.mapping(purchaseProducts);
-        createReceipt(purchaseData);
+        while (true) {
+            try {
+                String purchaseProducts = inputView.readPurchaseProduct();
+                if (purchaseProducts.equals("N")) {
+                    break;
+                }
+                Map<String, Integer> purchaseData = inputParser.mapping(purchaseProducts);
+                productManager.validate(purchaseData);
+
+                createReceipt(purchaseData);
+                return;
+            } catch (Exception e) {
+                outputView.printError(e.getMessage());
+            }
+        }
     }
 
     public void createReceipt(Map<String, Integer> purchaseData) {
@@ -42,6 +53,7 @@ public class ConvenienceStore {
             Amount purchaseAmount = productManager.purchase(name, amount);
             receipt.addAmount(purchaseAmount);
         });
+        membership();
     }
 
     public void membership() {

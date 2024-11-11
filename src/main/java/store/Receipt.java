@@ -24,13 +24,13 @@ public class Receipt {
 
     public String productReport() {
         StringBuilder productReport = new StringBuilder();
-        amounts.forEach(amount -> productReport.append(amount.parseProductDetails()).append("\n"));
+        amounts.forEach(amount -> productReport.append(amount.parseProductDetails()));
         return productReport.toString();
     }
 
     public String promotionReport() {
         StringBuilder promotionReport = new StringBuilder();
-        amounts.forEach(amount -> promotionReport.append(amount.parsePromotionDetails()).append("\n"));
+        amounts.forEach(amount -> promotionReport.append(amount.parsePromotionDetails()));
         return promotionReport.toString();
     }
 

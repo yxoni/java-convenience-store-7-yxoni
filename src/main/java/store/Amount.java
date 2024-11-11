@@ -36,12 +36,18 @@ public class Amount {
     }
 
     public String parseProductDetails() {
-        String productReportFormat = "%-19s%-10d%,-6d";
+        if (buy == 0) {
+            return "";
+        }
+        String productReportFormat = "%-19s%-10d%,-6d\n";
         return String.format(productReportFormat, name, buy, price*buy);
     }
 
     public String parsePromotionDetails() {
-        String promotionReportFormat = "%-19s%,-10d";
+        if (get == 0) {
+            return "";
+        }
+        String promotionReportFormat = "%-19s%,-10d\n";
         return String.format(promotionReportFormat, name, get);
     }
 

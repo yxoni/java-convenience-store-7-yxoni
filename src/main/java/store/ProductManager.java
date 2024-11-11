@@ -1,6 +1,7 @@
 package store;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProductManager {
     private final List<Product> products;
@@ -15,6 +16,15 @@ public class ProductManager {
                 .filter(product -> product.isCorrect(name))
                 .toList();
 
+        int totalQuantity = 0;
+        for (Product product : purchaseProducts) {
+            totalQuantity += product.getQuantity();
+        }
+
+        if (totalQuantity < amount) {
+            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+        }
+
         Amount purchaseAmount = purchaseProducts.getFirst().buy(amount);
         if (purchaseAmount.isAdditional()) {
             Amount additionalAmount = purchaseProducts.getLast().buy(purchaseAmount.getAdditional());
@@ -26,5 +36,15 @@ public class ProductManager {
     public void print() {
         OutputView outputView = new OutputView();
         outputView.printProducts(products);
+    }
+
+    public void validate(Map<String, Integer> purchaseData) {
+        for (String productName : purchaseData.keySet()) {
+            boolean exists = products.stream()
+                    .anyMatch(product -> product.isExist(productName));
+            if (!exists) {
+                throw new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요.");
+            }
+        }
     }
 }

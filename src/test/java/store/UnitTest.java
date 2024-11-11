@@ -38,7 +38,7 @@ public class UnitTest {
         FileReader fileReader = new FileReader();
         List<Product> products = fileReader.createProduct();
 
-        Assertions.assertThat(products.size()).isEqualTo(16);
+        Assertions.assertThat(products.size()).isEqualTo(18);
     }
 
     @Test
@@ -179,7 +179,6 @@ public class UnitTest {
                 "콜라", amount
         );
         convenienceStore.createReceipt(purchaseData);
-        convenienceStore.membership();
         convenienceStore.showReceipt();
 
         int total = amount * 1000;

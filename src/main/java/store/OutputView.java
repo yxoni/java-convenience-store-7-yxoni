@@ -13,7 +13,7 @@ public class OutputView {
     }
 
     public void purchaseGuide() {
-        System.out.println("\n구매하실 상품명과 수량을 입력해 주세요. (얘: [사이다-2],[감자칩-1]");
+        System.out.println("\n구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])");
     }
 
     public void promotionAdditionalGuide(String productName) {
@@ -39,5 +39,9 @@ public class OutputView {
 
     public void closingGuide() {
         System.out.println("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)");
+    }
+
+    public void printError(String errorMessage) {
+        System.out.println(errorMessage);
     }
 }
