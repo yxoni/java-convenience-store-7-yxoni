@@ -16,14 +16,14 @@ public class ProductManager {
                 .filter(product -> product.isCorrect(name))
                 .toList();
 
-        int totalQuantity = 0;
-        for (Product product : purchaseProducts) {
-            totalQuantity += product.getQuantity();
-        }
-
-        if (totalQuantity < amount) {
-            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
-        }
+//        int totalQuantity = 0;
+//        for (Product product : purchaseProducts) {
+//            totalQuantity += product.getQuantity();
+//        }
+//
+//        if (totalQuantity < amount) {
+//            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+//        }
 
         Amount purchaseAmount = purchaseProducts.getFirst().buy(amount);
         if (purchaseAmount.isAdditional()) {

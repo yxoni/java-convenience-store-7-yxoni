@@ -41,7 +41,10 @@ public class Promotion {
         }
         outputView.promotionImpossibleGuide(productName, impossibleAmount);
         if (inputView.readAnswer().trim().equals("Y")) {
-            return new Amount(productName, price, amount-impossibleAmount, (amount-impossibleAmount)/total, impossibleAmount);
+            if (quantity - (amount - impossibleAmount) < impossibleAmount) {
+                return new Amount(productName, price, quantity, (amount-impossibleAmount)/total, amount-quantity);
+            }
+            return new Amount(productName, price, amount, (amount-impossibleAmount)/total, 0);
         }
         return new Amount(productName, price, amount-impossibleAmount, (amount-impossibleAmount)/total,0);
     }
