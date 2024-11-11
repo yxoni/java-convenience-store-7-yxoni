@@ -11,12 +11,12 @@ public class ProductManager {
         products = fileReader.createProduct();
     }
 
-    public Amount purchase(String name, int amount) {
+    public Amount purchase(String name, long amount) {
         List<Product> purchaseProducts = products.stream()
                 .filter(product -> product.isCorrect(name))
                 .toList();
 
-        int totalQuantity = 0;
+        long totalQuantity = 0;
         for (Product product : purchaseProducts) {
             totalQuantity += product.getQuantity();
         }
@@ -38,7 +38,7 @@ public class ProductManager {
         outputView.printProducts(products);
     }
 
-    public void validate(Map<String, Integer> purchaseData) {
+    public void validate(Map<String, Long> purchaseData) {
         for (String productName : purchaseData.keySet()) {
             boolean exists = products.stream()
                     .anyMatch(product -> product.isExist(productName));

@@ -30,8 +30,8 @@ public class ProductParser {
     public Product parse(String product) {
         String[] productParts = product.split(",");
         String name = productParts[0];
-        int price = Integer.parseInt(productParts[1]);
-        int quantity = Integer.parseInt(productParts[2]);
+        long price = Long.parseLong(productParts[1]);
+        long quantity = Long.parseLong(productParts[2]);
         Promotion promotion = promotionManager.match(productParts[3]);
 
         return new Product(name, price, quantity, promotion);

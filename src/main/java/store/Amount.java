@@ -2,13 +2,13 @@ package store;
 
 public class Amount {
     private final String name;
-    private final int price;
-    private int buy;
-    private final int get;
-    private final int additional;
-    private final int membership;
+    private final long price;
+    private long buy;
+    private final long get;
+    private final long additional;
+    private final long membership;
 
-    public Amount(String name, int price, int buy, int get, int additional, int membership) {
+    public Amount(String name, long price, long buy, long get, long additional, long membership) {
         this.name = name;
         this.price = price;
         this.buy = buy;
@@ -17,27 +17,27 @@ public class Amount {
         this.membership = membership;
     }
 
-    public int getBuy() {
+    public long getBuy() {
         return buy;
     }
 
-    public int getAdditional() {
+    public long getAdditional() {
         return additional;
     }
 
-    public int totalPrice() {
+    public long totalPrice() {
         return price * buy;
     }
 
-    public int promotionPrice() {
+    public long promotionPrice() {
         return price * get;
     }
 
-    public int  membershipAvailablePrice() {
+    public long  membershipAvailablePrice() {
         return price * membership;
     }
 
-    public void addBuyAmount(int amount) {
+    public void addBuyAmount(long amount) {
         this.buy += amount;
     }
 

@@ -25,8 +25,8 @@ public class PromotionParser {
     public Promotion parse(String promotion) {
         String[] promotionParts = promotion.split(",");
         String name = promotionParts[0];
-        int get = Integer.parseInt(promotionParts[1]);
-        int buy = Integer.parseInt(promotionParts[2]);
+        long get = Long.parseLong(promotionParts[1]);
+        long buy = Long.parseLong(promotionParts[2]);
         LocalDate startDate = formatDate(promotionParts[3]);
         LocalDate endDate = formatDate(promotionParts[4]);
 

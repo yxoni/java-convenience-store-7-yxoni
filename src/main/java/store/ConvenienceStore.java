@@ -17,6 +17,7 @@ public class ConvenienceStore {
             purchase();
             showReceipt();
             close();
+            System.out.println();
         }
     }
 
@@ -37,7 +38,7 @@ public class ConvenienceStore {
                 if (purchaseProducts.equals("N")) {
                     break;
                 }
-                Map<String, Integer> purchaseData = inputParser.mapping(purchaseProducts);
+                Map<String, Long> purchaseData = inputParser.mapping(purchaseProducts);
                 productManager.validate(purchaseData);
 
                 createReceipt(purchaseData);
@@ -48,7 +49,7 @@ public class ConvenienceStore {
         }
     }
 
-    public void createReceipt(Map<String, Integer> purchaseData) {
+    public void createReceipt(Map<String, Long> purchaseData) {
         purchaseData.forEach((name, amount) -> {
             Amount purchaseAmount = productManager.purchase(name, amount);
             receipt.addAmount(purchaseAmount);

@@ -7,12 +7,12 @@ public class Promotion {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
     private final String name;
-    private final int buy;
-    private final int get;
+    private final long buy;
+    private final long get;
     private final LocalDate startDate;
     private final LocalDate endDate;
 
-    public Promotion(String name, int buy, int get, LocalDate startDate, LocalDate endDate) {
+    public Promotion(String name, long buy, long get, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.buy = buy;
         this.get = get;
@@ -20,9 +20,9 @@ public class Promotion {
         this.endDate = endDate;
     }
 
-    public Amount apply(String productName, int price, int quantity, int amount) {
-        int total = buy + get;
-        int maxAmount= quantity / total * total;
+    public Amount apply(String productName, long price, long quantity, long amount) {
+        long total = buy + get;
+        long maxAmount= quantity / total * total;
         if (amount <= maxAmount && amount % total == 0) {
             return new Amount(productName, price, amount, amount/total, 0, 0);
         }
@@ -35,7 +35,7 @@ public class Promotion {
             return new Amount(productName, price, amount, amount/total, 0, 0);
         }
 
-        int impossibleAmount = amount % total;
+        long impossibleAmount = amount % total;
         if (amount > maxAmount) {
             impossibleAmount = amount - maxAmount;
         }
