@@ -51,8 +51,8 @@ public class Receipt {
 
     public String parsePaymentDetails() {
         StringBuilder paymentReport = new StringBuilder();
-        String totalPriceFormat = "%-19s%-10d%-6d";
-        String otherPriceFormat = "%-29s%-6s";
+        String totalPriceFormat = "%-19s%-10d%,-6d";
+        String otherPriceFormat = "%-29s%,-6d";
         return (paymentReport.append(String.format(totalPriceFormat, "총  구매액", totalBuyAmount, totalPrice)).append("\n")
                 .append(String.format(otherPriceFormat, "행사  할인", -promotionPrice)).append("\n")
                 .append(String.format(otherPriceFormat, "멤버십할인", -membershipPrice)).append("\n")

@@ -153,9 +153,9 @@ public class UnitTest {
         convenienceStore.payment("콜라", amount);
         convenienceStore.ending();
 
-        String productFormat = "%-19s %-10d %-6d";
+        String productFormat = "%-19s%-10d%,-6d";
         String expectedProduct = String.format(productFormat, "콜라", amount, amount * 1000);
-        String promotionFormat = "%-19s %-10d";
+        String promotionFormat = "%-19s%,-10d";
         String expectedPromotion = String.format(promotionFormat, "콜라", promotionAmount);
 
         assertTrue(outputStream.toString().contains(expectedProduct));
@@ -173,8 +173,8 @@ public class UnitTest {
         convenienceStore.payment("콜라", amount);
         convenienceStore.ending();
 
-        String totalFormat = "%-19s %-10d %-6d";
-        String etcFormat = "%-29s %6d";
+        String totalFormat = "%-19s%-10d%,-6d";
+        String etcFormat = "%-29s%,6d";
 
         int total = amount * 1000;
         int promotion = promotionAmount * 1000;
