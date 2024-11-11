@@ -1,7 +1,10 @@
-package store.product;
+package store.file;
 
+import store.product.Product;
 import store.promotion.PromotionManager;
 import store.promotion.Promotion;
+import store.type.ProductType;
+import store.type.PromotionType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,10 +34,10 @@ public class ProductParser {
 
     public Product parse(String product) {
         String[] productParts = product.split(",");
-        String name = productParts[0];
-        int price = Integer.parseInt(productParts[1]);
-        int quantity = Integer.parseInt(productParts[2]);
-        Promotion promotion = promotionManager.match(productParts[3]);
+        String name = productParts[ProductType.NAME.getValue()];
+        int price = Integer.parseInt(productParts[ProductType.PRICE.getValue()]);
+        int quantity = Integer.parseInt(productParts[ProductType.QUANTITY.getValue()]);
+        Promotion promotion = promotionManager.match(productParts[ProductType.PROMOTION.getValue()]);
 
         return new Product(name, price, quantity, promotion);
     }

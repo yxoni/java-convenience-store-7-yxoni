@@ -3,6 +3,7 @@ package store.product;
 import store.object.Amount;
 import store.file.FileReader;
 import store.io.OutputView;
+import store.type.ErrorMessage;
 
 import java.util.List;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class ProductManager {
             totalQuantity += product.getQuantity();
         }
         if (totalQuantity < amount) {
-            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.EXCEED_QUANTITY.getMessage());
         }
     }
 
@@ -53,7 +54,7 @@ public class ProductManager {
             boolean exists = products.stream()
                     .anyMatch(product -> product.isExist(productName));
             if (!exists) {
-                throw new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요.");
+                throw new IllegalArgumentException(ErrorMessage.NON_EXISTING_PRODUCT.getMessage());
             }
         }
     }

@@ -1,4 +1,7 @@
-package store.promotion;
+package store.file;
+
+import store.promotion.Promotion;
+import store.type.PromotionType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,11 +27,11 @@ public class PromotionParser {
 
     public Promotion parse(String promotion) {
         String[] promotionParts = promotion.split(",");
-        String name = promotionParts[0];
-        int get = Integer.parseInt(promotionParts[1]);
-        int buy = Integer.parseInt(promotionParts[2]);
-        LocalDate startDate = formatDate(promotionParts[3]);
-        LocalDate endDate = formatDate(promotionParts[4]);
+        String name = promotionParts[PromotionType.NAME.getValue()];
+        int get = Integer.parseInt(promotionParts[PromotionType.GET.getValue()]);
+        int buy = Integer.parseInt(promotionParts[PromotionType.BUY.getValue()]);
+        LocalDate startDate = formatDate(promotionParts[PromotionType.START_DATE.getValue()]);
+        LocalDate endDate = formatDate(promotionParts[PromotionType.END_DATE.getValue()]);
 
         return new Promotion(name, get, buy, startDate, endDate);
     }

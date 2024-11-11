@@ -1,5 +1,7 @@
 package store.io;
 
+import store.type.ErrorMessage;
+
 import java.util.*;
 
 public class InputParser {
@@ -30,7 +32,7 @@ public class InputParser {
 
     public void validate(String name) {
         if (purchaseData.containsKey(name)) {
-            throw new IllegalArgumentException("[ERROR] 잘못된 입력입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getMessage());
         }
     }
 }

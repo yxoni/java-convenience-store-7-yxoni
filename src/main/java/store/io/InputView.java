@@ -1,6 +1,7 @@
 package store.io;
 
 import camp.nextstep.edu.missionutils.Console;
+import store.type.ErrorMessage;
 
 public class InputView {
     private final OutputView outputView = new OutputView();
@@ -31,14 +32,14 @@ public class InputView {
 
     public void answerValidate(String input) {
         if(!"Y".equals(input) && !"N".equals(input)) {
-            throw new IllegalArgumentException("[ERROR] 잘못된 입력입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getMessage());
         }
     }
 
     public void purchaseProductValidate(String input) {
         String regex = "\\[([a-zA-Z가-힣]+-[1-9][0-9]*)\\](,\\[([a-zA-Z가-힣]+-[1-9][0-9]*)\\])*";
         if (!input.matches(regex)) {
-            throw new IllegalArgumentException("[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_FORMAT.getMessage());
         }
     }
 }

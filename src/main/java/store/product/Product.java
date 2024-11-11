@@ -3,6 +3,7 @@ package store.product;
 import camp.nextstep.edu.missionutils.DateTimes;
 import store.object.Amount;
 import store.promotion.Promotion;
+import store.type.ErrorMessage;
 
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class Product {
 
     public void isExceed(int amount) {
         if (amount > quantity) {
-            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.EXCEED_QUANTITY.getMessage());
         }
     }
 

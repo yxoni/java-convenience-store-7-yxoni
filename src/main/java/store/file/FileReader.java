@@ -1,10 +1,8 @@
 package store.file;
 
 import store.product.Product;
-import store.product.ProductParser;
 import store.promotion.Promotion;
 import store.promotion.PromotionManager;
-import store.promotion.PromotionParser;
 
 import java.io.InputStream;
 import java.util.List;
