@@ -46,6 +46,9 @@ public class Receipt {
         if (membershipDiscount) {
             membershipPrice = (int) Math.floor((totalPrice - promotionPrice) * 0.3);
         }
+        if (membershipPrice > 8000) {
+            membershipPrice = 8000;
+        }
         payment = totalPrice - promotionPrice - membershipPrice;
     }
 
