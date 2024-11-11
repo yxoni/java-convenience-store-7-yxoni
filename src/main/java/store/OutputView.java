@@ -29,15 +29,12 @@ public class OutputView {
     }
 
     public void printReceipt(Receipt receipt) {
-        // TODO: 영수증 출력 상세 내역
-        String receiptStartLine = "=".repeat(14);
-        String receiptEndLine = "=".repeat(16);
-
-        System.out.println(receiptStartLine + "W 편의점" + receiptEndLine);
+        System.out.println("==============W 편의점================");
         System.out.println(receipt.productReport());
-        System.out.println(receiptStartLine + "증\t정" + receiptEndLine);
+        System.out.println("==============증    정================");
         System.out.println(receipt.promotionReport());
-        System.out.println("=".repeat(36));
+        System.out.println("======================================");
+        System.out.println(receipt.paymentReport());
     }
 
     public void closingGuide() {

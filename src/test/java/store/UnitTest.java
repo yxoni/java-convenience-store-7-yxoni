@@ -166,7 +166,8 @@ public class UnitTest {
     @CsvSource(value = {"3,1", "4,1", "10,3", "12,3"})
     void 영수증으로_금액_정보_보기(int amount, int promotionAmount) {
         String yes = "Y\n";
-        System.setIn(new ByteArrayInputStream(yes.getBytes()));
+        String input = yes + yes;
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         ConvenienceStore convenienceStore = new ConvenienceStore();
         convenienceStore.payment("콜라", amount);
@@ -180,8 +181,8 @@ public class UnitTest {
         int membership = (int) Math.floor((amount - promotionAmount) * 1000 * 0.3);
         int payment = total - promotion - membership;
         String expectedReceipt = String.format(totalFormat, "총구매액", amount, total);
-        String expectedPromotion = String.format(etcFormat, "행사할인", "-"+promotion);
-        String expectedMembership = String.format(etcFormat, "멤버십할인", "-"+membership);
+        String expectedPromotion = String.format(etcFormat, "행사할인", -promotion);
+        String expectedMembership = String.format(etcFormat, "멤버십할인", -membership);
         String expectedPayment = String.format(etcFormat, "내실돈", payment);
 
         assertTrue(outputStream.toString().contains(expectedReceipt));
