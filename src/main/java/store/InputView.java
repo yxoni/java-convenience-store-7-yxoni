@@ -11,7 +11,7 @@ public class InputView {
                 String input = Console.readLine();
                 answerValidate(input);
                 return input;
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }
@@ -23,7 +23,7 @@ public class InputView {
                 String input = Console.readLine();
                 purchaseProductValidate(input);
                 return input;
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }
@@ -37,7 +37,7 @@ public class InputView {
 
     public void purchaseProductValidate(String input) {
         String regex = "\\[([a-zA-Z가-힣]+-[1-9][0-9]*)\\](,\\[([a-zA-Z가-힣]+-[1-9][0-9]*)\\])*";
-        if (!input.matches(regex) && !"N".equals(input)) {
+        if (!input.matches(regex)) {
             throw new IllegalArgumentException("[ERROR] 올바르지 않은 형식으로 입력했습니다. 다시 입력해 주세요.");
         }
     }

@@ -34,15 +34,12 @@ public class ConvenienceStore {
         while (true) {
             try {
                 String purchaseProducts = inputView.readPurchaseProduct();
-                if (purchaseProducts.equals("N")) {
-                    break;
-                }
                 Map<String, Integer> purchaseData = inputParser.mapping(purchaseProducts);
                 productManager.validate(purchaseData);
 
                 createReceipt(purchaseData);
                 return;
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }
