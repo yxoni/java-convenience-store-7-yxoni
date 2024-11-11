@@ -154,7 +154,7 @@ public class UnitTest {
         convenienceStore.ending();
 
         String productFormat = "%-19s %-10d %-6d";
-        String expectedProduct = String.format(productFormat, "콜라", amount, amount*1000);
+        String expectedProduct = String.format(productFormat, "콜라", amount, amount * 1000);
         String promotionFormat = "%-19s %-10d";
         String expectedPromotion = String.format(promotionFormat, "콜라", promotionAmount);
 
@@ -162,4 +162,31 @@ public class UnitTest {
         assertTrue(outputStream.toString().contains(expectedPromotion));
     }
 
+    @ParameterizedTest
+    @CsvSource(value = {"3,1", "4,1", "10,3", "12,3"})
+    void 영수증으로_금액_정보_보기(int amount, int promotionAmount) {
+        String yes = "Y\n";
+        System.setIn(new ByteArrayInputStream(yes.getBytes()));
+
+        ConvenienceStore convenienceStore = new ConvenienceStore();
+        convenienceStore.payment("콜라", amount);
+        convenienceStore.ending();
+
+        String totalFormat = "%-19s %-10d %-6d";
+        String etcFormat = "%-29s %6d";
+
+        int total = amount * 1000;
+        int promotion = promotionAmount * 1000;
+        int membership = (int) Math.floor((amount - promotionAmount) * 1000 * 0.3);
+        int payment = total - promotion - membership;
+        String expectedReceipt = String.format(totalFormat, "총구매액", amount, total);
+        String expectedPromotion = String.format(etcFormat, "행사할인", "-"+promotion);
+        String expectedMembership = String.format(etcFormat, "멤버십할인", "-"+membership);
+        String expectedPayment = String.format(etcFormat, "내실돈", payment);
+
+        assertTrue(outputStream.toString().contains(expectedReceipt));
+        assertTrue(outputStream.toString().contains(expectedPromotion));
+        assertTrue(outputStream.toString().contains(expectedMembership));
+        assertTrue(outputStream.toString().contains(expectedPayment));
+    }
 }
