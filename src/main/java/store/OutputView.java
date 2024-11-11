@@ -13,7 +13,7 @@ public class OutputView {
     }
 
     public void purchaseGuide() {
-        System.out.println("구매하실 상품명과 수량을 입력해 주세요. (얘: [사이다-2],[감자칩-1]");
+        System.out.println("\n구매하실 상품명과 수량을 입력해 주세요. (얘: [사이다-2],[감자칩-1]");
     }
 
     public void promotionAdditionalGuide(String productName) {
@@ -21,15 +21,15 @@ public class OutputView {
     }
 
     public void promotionImpossibleGuide(String productName, int amount) {
-        System.out.printf("현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)\n", productName, amount);
+        System.out.printf("\n현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)\n", productName, amount);
     }
 
     public void membershipGuide() {
-        System.out.println("멤버십 할인을 받으시겠습니다? (Y/N)");
+        System.out.println("\n멤버십 할인을 받으시겠습니다? (Y/N)");
     }
 
     public void printReceipt(Receipt receipt) {
-        System.out.println("==============W 편의점================");
+        System.out.println("\n==============W 편의점================");
         System.out.println(receipt.productReport());
         System.out.println("==============증    정================");
         System.out.println(receipt.promotionReport());

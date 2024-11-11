@@ -151,7 +151,7 @@ public class UnitTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         ConvenienceStore convenienceStore = new ConvenienceStore();
-        convenienceStore.payment("콜라", amount);
+        convenienceStore.purchase("콜라", amount);
         convenienceStore.ending();
 
         String expectedProduct = String.format("콜라%d%,d", amount, amount * 1000);
@@ -169,7 +169,7 @@ public class UnitTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         ConvenienceStore convenienceStore = new ConvenienceStore();
-        convenienceStore.payment("콜라", amount);
+        convenienceStore.purchase("콜라", amount);
         convenienceStore.ending();
 
         int total = amount * 1000;
