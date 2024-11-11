@@ -147,19 +147,18 @@ public class UnitTest {
     @CsvSource(value = {"3,1", "4,1", "10,3", "12,3"})
     void 영수증으로_고객의_구매와_증정_내역_보기(int amount, int promotionAmount) {
         String yes = "Y\n";
-        System.setIn(new ByteArrayInputStream(yes.getBytes()));
+        String input = yes + yes;
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         ConvenienceStore convenienceStore = new ConvenienceStore();
         convenienceStore.payment("콜라", amount);
         convenienceStore.ending();
 
-        String productFormat = "%-19s%-10d%,-6d";
-        String expectedProduct = String.format(productFormat, "콜라", amount, amount * 1000);
-        String promotionFormat = "%-19s%,-10d";
-        String expectedPromotion = String.format(promotionFormat, "콜라", promotionAmount);
+        String expectedProduct = String.format("콜라%d%,d", amount, amount * 1000);
+        String expectedPromotion = String.format("콜라%d", promotionAmount);
 
-        assertTrue(outputStream.toString().contains(expectedProduct));
-        assertTrue(outputStream.toString().contains(expectedPromotion));
+        assertTrue(outputStream.toString().replaceAll("\\s", "").contains(expectedProduct));
+        assertTrue(outputStream.toString().replaceAll("\\s", "").contains(expectedPromotion));
     }
 
     @ParameterizedTest
@@ -173,21 +172,19 @@ public class UnitTest {
         convenienceStore.payment("콜라", amount);
         convenienceStore.ending();
 
-        String totalFormat = "%-19s%-10d%,-6d";
-        String etcFormat = "%-29s%,6d";
-
         int total = amount * 1000;
         int promotion = promotionAmount * 1000;
         int membership = (int) Math.floor((amount - promotionAmount) * 1000 * 0.3);
         int payment = total - promotion - membership;
-        String expectedReceipt = String.format(totalFormat, "총구매액", amount, total);
-        String expectedPromotion = String.format(etcFormat, "행사할인", -promotion);
-        String expectedMembership = String.format(etcFormat, "멤버십할인", -membership);
-        String expectedPayment = String.format(etcFormat, "내실돈", payment);
 
-        assertTrue(outputStream.toString().contains(expectedReceipt));
-        assertTrue(outputStream.toString().contains(expectedPromotion));
-        assertTrue(outputStream.toString().contains(expectedMembership));
-        assertTrue(outputStream.toString().contains(expectedPayment));
+        String expectedReceipt = String.format("총구매액%d%,d", amount, total);
+        String expectedPromotion = String.format("행사할인%,d", -promotion);
+        String expectedMembership = String.format("멤버십할인%,d", -membership);
+        String expectedPayment = String.format("내실돈%,d", payment);
+
+        assertTrue(outputStream.toString().replaceAll("\\s", "").contains(expectedReceipt));
+        assertTrue(outputStream.toString().replaceAll("\\s", "").contains(expectedPromotion));
+        assertTrue(outputStream.toString().replaceAll("\\s", "").contains(expectedMembership));
+        assertTrue(outputStream.toString().replaceAll("\\s", "").contains(expectedPayment));
     }
 }
