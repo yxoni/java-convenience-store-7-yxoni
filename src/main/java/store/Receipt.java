@@ -53,9 +53,9 @@ public class Receipt {
         StringBuilder paymentReport = new StringBuilder();
         String totalPriceFormat = "%-19s%-10d%,-6d";
         String otherPriceFormat = "%-29s%,-6d";
-        return (paymentReport.append(String.format(totalPriceFormat, "총  구매액", totalBuyAmount, totalPrice)).append("\n")
-                .append(String.format(otherPriceFormat, "행사  할인", -promotionPrice)).append("\n")
+        return (paymentReport.append(String.format(totalPriceFormat, "총구매액", totalBuyAmount, totalPrice)).append("\n")
+                .append(String.format(otherPriceFormat, "행사할인", -promotionPrice)).append("\n")
                 .append(String.format(otherPriceFormat, "멤버십할인", -membershipPrice)).append("\n")
-                .append(String.format(otherPriceFormat, "내  실  돈", payment)).append("\n")).toString();
+                .append(String.format(otherPriceFormat, "내실돈", payment)).append("\n")).toString();
     }
 }

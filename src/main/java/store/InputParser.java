@@ -6,7 +6,7 @@ public class InputParser {
     private Map<String, Integer> purchaseData;
 
     public Map<String, Integer> mapping(String input) {
-        purchaseData = new HashMap<>();
+        purchaseData = new LinkedHashMap<>();
 
         String[] items = input.replaceAll("[\\[\\]]", "").split(",");
         parseItem(items);

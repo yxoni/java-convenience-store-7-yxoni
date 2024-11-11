@@ -30,9 +30,11 @@ public class OutputView {
 
     public void printReceipt(Receipt receipt) {
         System.out.println("\n==============W 편의점================");
-        System.out.println(receipt.productReport());
+        String productReportFormat = "%-19s%-10s%-6s";
+        System.out.printf((productReportFormat) + "%n", "상품명", "수량", "금액");
+        System.out.printf(receipt.productReport());
         System.out.println("==============증    정================");
-        System.out.println(receipt.promotionReport());
+        System.out.printf(receipt.promotionReport());
         System.out.println("======================================");
         System.out.println(receipt.paymentReport());
     }
