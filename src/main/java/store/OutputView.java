@@ -20,7 +20,7 @@ public class OutputView {
         System.out.printf("\n현재 %s은(는) 1개를 무료로 더 받을 수 있습니다. 추가하시겠습니까? (Y/N)\n", productName);
     }
 
-    public void promotionImpossibleGuide(String productName, long amount) {
+    public void promotionImpossibleGuide(String productName, int amount) {
         System.out.printf("\n현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)\n", productName, amount);
     }
 
@@ -36,14 +36,14 @@ public class OutputView {
         System.out.println("==============증    정================");
         System.out.printf(receipt.promotionReport());
         System.out.println("======================================");
-        System.out.println(receipt.paymentReport());
+        System.out.printf(receipt.paymentReport());
     }
 
     public void closingGuide() {
-        System.out.println("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)");
+        System.out.println("\n감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)");
     }
 
     public void printError(String errorMessage) {
-        System.out.println(errorMessage);
+        System.out.println("\n"+errorMessage);
     }
 }

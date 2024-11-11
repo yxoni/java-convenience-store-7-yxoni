@@ -3,12 +3,12 @@ package store;
 public class Amount {
     private final String name;
     private final int price;
-    private long buy;
-    private final long get;
-    private final long additional;
-    private final long membership;
+    private int buy;
+    private final int get;
+    private final int additional;
+    private final int membership;
 
-    public Amount(String name, long price, long buy, long get, long additional, long membership) {
+    public Amount(String name, int price, int buy, int get, int additional, int membership) {
         this.name = name;
         this.price = price;
         this.buy = buy;
@@ -17,27 +17,27 @@ public class Amount {
         this.membership = membership;
     }
 
-    public long getBuy() {
+    public int getBuy() {
         return buy;
     }
 
-    public long getAdditional() {
+    public int getAdditional() {
         return additional;
     }
 
-    public long totalPrice() {
+    public int totalPrice() {
         return price * buy;
     }
 
-    public long promotionPrice() {
+    public int promotionPrice() {
         return price * get;
     }
 
-    public long  membershipAvailablePrice() {
+    public int  membershipAvailablePrice() {
         return price * membership;
     }
 
-    public void addBuyAmount(long amount) {
+    public void addBuyAmount(int amount) {
         this.buy += amount;
     }
 
@@ -55,6 +55,10 @@ public class Amount {
         }
         String promotionReportFormat = "%-19s%,-10d\n";
         return String.format(promotionReportFormat, name, get);
+    }
+
+    public boolean isPurchase() {
+        return buy > 0;
     }
 
     public boolean isAdditional() {

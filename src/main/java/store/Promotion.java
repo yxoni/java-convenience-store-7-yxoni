@@ -7,12 +7,12 @@ public class Promotion {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
     private final String name;
-    private final long buy;
-    private final long get;
+    private final int buy;
+    private final int get;
     private final LocalDate startDate;
     private final LocalDate endDate;
 
-    public Promotion(String name, long buy, long get, LocalDate startDate, LocalDate endDate) {
+    public Promotion(String name, int buy, int get, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.buy = buy;
         this.get = get;
@@ -20,25 +20,28 @@ public class Promotion {
         this.endDate = endDate;
     }
 
-    public Amount apply(String productName, long price, long quantity, long amount) {
-        long total = buy + get;
-        long maxAmount= quantity / total * total;
+    public Amount apply(String productName, int price, int quantity, int amount) {
+        int total = buy + get;
+        int maxAmount = quantity / total * total;
         if (amount <= maxAmount && amount % total == 0) {
             return new Amount(productName, price, amount, amount/total, 0, 0);
         }
-
         if (amount % total == buy && amount < maxAmount) {
-            outputView.promotionAdditionalGuide(productName);
-            if (inputView.readAnswer().equals("Y")) {
-                return new Amount(productName, price, amount+1, (amount+1)/total, 0, 0);
-            }
-            return new Amount(productName, price, amount, amount/total, 0, 0);
+            return additionalGet(productName, price, quantity, amount, total);
         }
+        return additionalBuy(productName, price, quantity, amount, total, maxAmount);
+    }
 
-        long impossibleAmount = amount % total;
-        if (amount > maxAmount) {
-            impossibleAmount = amount - maxAmount;
+    public Amount additionalGet(String productName, int price, int quantity, int amount, int total) {
+        outputView.promotionAdditionalGuide(productName);
+        if (inputView.readAnswer().equals("Y")) {
+            return new Amount(productName, price, amount+1, (amount+1)/total, 0, 0);
         }
+        return new Amount(productName, price, amount, amount/total, 0, 0);
+    }
+
+    public Amount additionalBuy(String productName, int price, int quantity, int amount, int total, int maxAmount) {
+       int impossibleAmount = calcImpossibleAmount(amount, total, maxAmount);
         outputView.promotionImpossibleGuide(productName, impossibleAmount);
         if (inputView.readAnswer().trim().equals("Y")) {
             if (quantity - (amount - impossibleAmount) < impossibleAmount) {
@@ -47,6 +50,14 @@ public class Promotion {
             return new Amount(productName, price, amount, (amount-impossibleAmount)/total, 0, impossibleAmount);
         }
         return new Amount(productName, price, amount-impossibleAmount, (amount-impossibleAmount)/total,0, 0);
+    }
+
+    public int calcImpossibleAmount(int amount, int total, int maxAmount) {
+        int impossibleAmount = amount % total;
+        if (amount > maxAmount) {
+            impossibleAmount = amount - maxAmount;
+        }
+        return impossibleAmount;
     }
 
     public boolean isPossible(LocalDateTime now) {

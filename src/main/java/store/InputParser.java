@@ -3,9 +3,9 @@ package store;
 import java.util.*;
 
 public class InputParser {
-    private Map<String, Long> purchaseData;
+    private Map<String, Integer> purchaseData;
 
-    public Map<String, Long> mapping(String input) {
+    public Map<String, Integer> mapping(String input) {
         purchaseData = new LinkedHashMap<>();
 
         String[] items = input.replaceAll("[\\[\\]]", "").split(",");
@@ -22,7 +22,7 @@ public class InputParser {
 
     public void addPurchaseData(String[] parts) {
         String name = parts[0];
-        long amount = Long.parseLong(parts[1]);
+        int amount = Integer.parseInt(parts[1]);
 
         validate(name);
         purchaseData.put(name, amount);

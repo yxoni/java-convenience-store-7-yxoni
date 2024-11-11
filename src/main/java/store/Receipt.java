@@ -6,15 +6,17 @@ import java.util.List;
 public class Receipt {
     private final List<Amount> amounts = new ArrayList<>();
     private boolean membershipDiscount;
-    private long totalPrice = 0;
-    private long totalBuyAmount = 0;
-    private long promotionPrice = 0;
-    private long membershipAvailablePrice = 0;
-    private long membershipPrice = 0;
-    private long payment = 0;
+    private int totalPrice = 0;
+    private int totalBuyAmount = 0;
+    private int promotionPrice = 0;
+    private int membershipAvailablePrice = 0;
+    private int membershipPrice = 0;
+    private int payment = 0;
 
     public void addAmount(Amount amount) {
-        amounts.add(amount);
+        if (amount.isPurchase()) {
+            amounts.add(amount);
+        }
     }
 
     public void membershipApply(String input) {
@@ -44,14 +46,19 @@ public class Receipt {
         amounts.forEach(amount -> totalPrice += amount.totalPrice());
         amounts.forEach(amount -> totalBuyAmount += amount.getBuy());
         amounts.forEach(amount -> promotionPrice += amount.promotionPrice());
+        calcMembershipPrice();
+
+        payment = totalPrice - promotionPrice - membershipPrice;
+    }
+
+    public void calcMembershipPrice() {
         amounts.forEach(amount -> membershipAvailablePrice += amount.membershipAvailablePrice());
         if (membershipDiscount) {
-            membershipPrice = (long) Math.floor(membershipAvailablePrice * 0.3);
+            membershipPrice = (int) Math.floor(membershipAvailablePrice * 0.3);
         }
         if (membershipPrice > 8000) {
             membershipPrice = 8000;
         }
-        payment = totalPrice - promotionPrice - membershipPrice;
     }
 
     public String parsePaymentDetails() {
@@ -62,5 +69,9 @@ public class Receipt {
                 .append(String.format(otherPriceFormat, "행사할인", "-", promotionPrice)).append("\n")
                 .append(String.format(otherPriceFormat, "멤버십할인", "-", membershipPrice)).append("\n")
                 .append(String.format(otherPriceFormat, "내실돈", "", payment)).append("\n")).toString();
+    }
+
+    public boolean isExistence() {
+        return amounts.size() > 0;
     }
 }

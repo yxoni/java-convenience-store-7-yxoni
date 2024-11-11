@@ -6,22 +6,22 @@ import java.util.Optional;
 
 public class Product {
     private final String name;
-    private final long price;
-    private long quantity;
+    private final int price;
+    private int quantity;
     private final Promotion promotion;
 
-    public Product(String name, long price, long quantity, Promotion promotion) {
+    public Product(String name, int price, int quantity, Promotion promotion) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.promotion = promotion;
     }
 
-    public long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public Amount buy(long amount) {
+    public Amount buy(int amount) {
         if (promotion != null) {
             return promotionBuy(amount);
         }
@@ -30,7 +30,7 @@ public class Product {
         return new Amount(name, price, amount, 0, 0, amount);
     }
 
-    public Amount promotionBuy(long amount) {
+    public Amount promotionBuy(int amount) {
         if (promotion.isPossible(DateTimes.now())) {
             Amount purchaseAmount = promotion.apply(name, price, quantity, amount);
             quantity -= purchaseAmount.getBuy();
@@ -43,7 +43,7 @@ public class Product {
         return name.equals(this.name);
     }
 
-    public void isExceed(long amount) {
+    public void isExceed(int amount) {
         if (amount > quantity) {
             throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
         }

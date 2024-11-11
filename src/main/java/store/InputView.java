@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 
 public class InputView {
     private final OutputView outputView = new OutputView();
+
     public String readAnswer() {
         while (true) {
             try {
