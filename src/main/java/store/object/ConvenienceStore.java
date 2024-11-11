@@ -38,16 +38,20 @@ public class ConvenienceStore {
         outputView.purchaseGuide();
         while (true) {
             try {
-                String purchaseProducts = inputView.readPurchaseProduct();
-                Map<String, Integer> purchaseData = inputParser.mapping(purchaseProducts);
-                productManager.validate(purchaseData);
-
-                createReceipt(purchaseData);
+                inputHandle();
                 return;
             } catch (IllegalArgumentException e) {
                 outputView.printError(e.getMessage());
             }
         }
+    }
+
+    public void inputHandle() {
+        String purchaseProducts = inputView.readPurchaseProduct();
+        Map<String, Integer> purchaseData = inputParser.mapping(purchaseProducts);
+        productManager.validate(purchaseData);
+        createReceipt(purchaseData);
+
     }
 
     public void createReceipt(Map<String, Integer> purchaseData) {
