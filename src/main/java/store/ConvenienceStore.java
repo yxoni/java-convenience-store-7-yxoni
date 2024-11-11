@@ -6,18 +6,23 @@ public class ConvenienceStore {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
     private final InputParser inputParser = new InputParser();
-    private final Receipt receipt = new Receipt();
     private final ProductManager productManager = new ProductManager();
+    private  Receipt receipt;
     private boolean isOpen = true;
 
     public void open() {
         while (isOpen) {
+            init();
             announcement();
             purchase();
             membership();
             showReceipt();
             close();
         }
+    }
+
+    public void init() {
+        receipt = new Receipt();
     }
 
     public void announcement() {

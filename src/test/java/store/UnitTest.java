@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -151,8 +152,12 @@ public class UnitTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         ConvenienceStore convenienceStore = new ConvenienceStore();
-        convenienceStore.purchase("콜라", amount);
-        convenienceStore.ending();
+        convenienceStore.init();
+        Map<String, Integer> purchaseData = Map.of(
+                "콜라", amount
+        );
+        convenienceStore.createReceipt(purchaseData);
+        convenienceStore.showReceipt();
 
         String expectedProduct = String.format("콜라%d%,d", amount, amount * 1000);
         String expectedPromotion = String.format("콜라%d", promotionAmount);
@@ -169,8 +174,13 @@ public class UnitTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         ConvenienceStore convenienceStore = new ConvenienceStore();
-        convenienceStore.purchase("콜라", amount);
-        convenienceStore.ending();
+        convenienceStore.init();
+        Map<String, Integer> purchaseData = Map.of(
+                "콜라", amount
+        );
+        convenienceStore.createReceipt(purchaseData);
+        convenienceStore.membership();
+        convenienceStore.showReceipt();
 
         int total = amount * 1000;
         int promotion = promotionAmount * 1000;
