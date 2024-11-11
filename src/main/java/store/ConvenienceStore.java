@@ -7,7 +7,7 @@ public class ConvenienceStore {
     private final OutputView outputView = new OutputView();
     private final InputParser inputParser = new InputParser();
     private final ProductManager productManager = new ProductManager();
-    private  Receipt receipt;
+    private Receipt receipt;
     private boolean isOpen = true;
 
     public void open() {
